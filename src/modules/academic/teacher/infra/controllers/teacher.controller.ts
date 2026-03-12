@@ -1,7 +1,7 @@
 import { TeacherDto } from "@academic/teacher/application/dto/teacher.dto";
-import { CreateTeacherService } from "@academic/teacher/application/services/create-teacher.service";
+import { CreateTeacherService } from "@academic/teacher/application/services/create-student.service";
 import { EditTeacherService } from "@academic/teacher/application/services/edit-teacher.service";
-import { ListTeachersService } from "@academic/teacher/application/services/list-teachers.service";
+import { ListTeachersService } from "@academic/teacher/application/services/list-teacher.service";
 import { RemoveTeacherService } from "@academic/teacher/application/services/remove-teacher.service";
 import { ReturnTeacherService } from "@academic/teacher/application/services/return-teacher.service";
 import {

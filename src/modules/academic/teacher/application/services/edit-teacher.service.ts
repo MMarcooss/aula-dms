@@ -1,38 +1,73 @@
-import type { TeacherDto } from "@academic/teacher/application/dto/teacher.dto";
-import {
-  TEACHER_REPOSITORY,
-  type TeacherRepository,
-} from "@academic/teacher/domain/repositories/teacher-repository.interface";
-import {
-  ConflictException,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from "@nestjs/common";
+import { Teacher } from "@academic/teacher/domain/models/teacher.entity";
+import type { TeacherRepository } from "@academic/teacher/domain/repositories/teacher-repository.interface";
+import { DrizzleService } from "@infra/database/drizzle.service";
+import { Injectable } from "@nestjs/common";
+import { eq } from "drizzle-orm";
+import { teachersSchema } from "../../infra/database/schemas/teacher.schema";
+
 
 @Injectable()
-export class EditTeacherService {
-  constructor(
-    @Inject(TEACHER_REPOSITORY)
-    private readonly teacherRepository: TeacherRepository,
-  ) {}
+export class EditTeacherService implements TeacherRepository {
+  constructor(private readonly drizzleService: DrizzleService) {}
 
-  async execute(id: string, dto: TeacherDto): Promise<void> {
-    const teacher = await this.teacherRepository.findById(id);
+  async create(teacher: Teacher): Promise<void> {
+    await this.drizzleService.db.insert(teachersSchema).values({
+      name: teacher.name,
+      email: teacher.email,
+      department: teacher.department,
+      birthDate: teacher.birthDate,
+      nationality: teacher.nationality,
+      phone: teacher.phone,
+      maritalStatus: teacher.maritalStatus,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+  }
 
-    if (!teacher) {
-      throw new NotFoundException("Teacher not found");
-    }
+  async update(teacher: Teacher): Promise<void> {
+    await this.drizzleService.db
+      .update(teachersSchema)
+      .set({
+        name: teacher.name,
+        email: teacher.email,
+        department: teacher.department,
+        birthDate: teacher.birthDate,
+        nationality: teacher.nationality,
+        phone: teacher.phone,
+        maritalStatus: teacher.maritalStatus,
+        updatedAt: new Date(),
+      })
+      .where(eq(teachersSchema.id, teacher.id!));
+  }
 
-    if (dto.email && dto.email !== teacher.email) {
-      const existing = await this.teacherRepository.findByEmail(dto.email);
+  async delete(id: string): Promise<void> {
+    await this.drizzleService.db
+      .delete(teachersSchema)
+      .where(eq(teachersSchema.id, id));
+  }
 
-      if (existing) {
-        throw new ConflictException("Email already registered");
-      }
-    }
+  async findById(id: string): Promise<Teacher | null> {
+    const result = await this.drizzleService.db
+      .select()
+      .from(teachersSchema)
+      .where(eq(teachersSchema.id, id))
+      .limit(1);
 
-    teacher.withName(dto.name).withEmail(dto.email).withDocument(dto.document);
-    await this.teacherRepository.update(teacher!);
+    return Teacher.restore(result[0]);
+  }
+
+  async findByEmail(email: string): Promise<Teacher | null> {
+    const result = await this.drizzleService.db
+      .select()
+      .from(teachersSchema)
+      .where(eq(teachersSchema.email, email.toLowerCase()))
+      .limit(1);
+
+    return Teacher.restore(result[0]);
+  }
+
+  async findAll(): Promise<Teacher[]> {
+    const rows = await this.drizzleService.db.select().from(teachersSchema);
+    return rows.map((row) => Teacher.restore(row)!);
   }
 }

@@ -13,8 +13,11 @@ export class DrizzleTeacherRepository implements TeacherRepository {
     await this.drizzleService.db.insert(teachersSchema).values({
       name: teacher.name,
       email: teacher.email,
-      document: teacher.document,
-      registration: teacher.registration,
+      department: teacher.department,
+      birthDate: teacher.birthDate,
+      nationality: teacher.nationality,
+      phone: teacher.phone,
+      maritalStatus: teacher.maritalStatus,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
@@ -26,8 +29,11 @@ export class DrizzleTeacherRepository implements TeacherRepository {
       .set({
         name: teacher.name,
         email: teacher.email,
-        document: teacher.document,
-        registration: teacher.registration,
+        department: teacher.department,
+        birthDate: teacher.birthDate,
+        nationality: teacher.nationality,
+        phone: teacher.phone,
+        maritalStatus: teacher.maritalStatus,
         updatedAt: new Date(),
       })
       .where(eq(teachersSchema.id, teacher.id!));
