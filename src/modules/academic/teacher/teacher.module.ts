@@ -1,4 +1,4 @@
-import { CreateTeacherService } from "@academic/teacher/application/services/create-student.service";
+import { CreateTeacherService } from "@academic/teacher/application/services/create-teacher.service";
 import { EditTeacherService } from "@academic/teacher/application/services/edit-teacher.service";
 import { ListTeachersService } from "@academic/teacher/application/services/list-teacher.service";
 import { RemoveTeacherService } from "@academic/teacher/application/services/remove-teacher.service";
