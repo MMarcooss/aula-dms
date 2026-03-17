@@ -1,4 +1,6 @@
 import { Teacher } from "../models/teacher.entity";
+import { ConflictException, Inject, Injectable } from "@nestjs/common";
+import  { TEACHER_REPOSITORY, type TeacherRepository } from "./teacher-repository.interface";
 
 export const TEACHER_REPOSITORY = Symbol("TEACHER_REPOSITORY");
 
@@ -10,3 +12,4 @@ export interface TeacherRepository {
   findById(id: string): Promise<Teacher | null>;
   findByEmail(email: string): Promise<Teacher | null>;
 }
+
