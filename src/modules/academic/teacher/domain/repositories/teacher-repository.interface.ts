@@ -1,6 +1,4 @@
 import { Teacher } from "../models/teacher.entity";
-import { ConflictException, Inject, Injectable } from "@nestjs/common";
-import  { TEACHER_REPOSITORY, type TeacherRepository } from "./teacher-repository.interface";
 
 export const TEACHER_REPOSITORY = Symbol("TEACHER_REPOSITORY");
 
