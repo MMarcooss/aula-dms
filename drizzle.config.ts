@@ -5,6 +5,6 @@ export default defineConfig({
   out: "./src/shared/infra/database/drizzle",
   dialect: "postgresql",
   dbCredentials: {
-    url: "postgres://postgres:postgres@localhost:5432/school_db",
+    url: "postgres://postgres:postgres@localhost:5433/school_db",
   },
 });
