@@ -1,4 +1,4 @@
-import { LoginDto } from "../dto/login.dto";
+import { LoginDto } from "@auth/application/dto/login.dto";
 import { UserService } from "@academic/users/application/services/user.service";
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
