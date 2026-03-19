@@ -16,4 +16,4 @@ import { AuthModule } from './modules/auth/auth.module';
     TeacherModule,
   ],
 })
-export class AppModule {}
+export class AppModule {} 

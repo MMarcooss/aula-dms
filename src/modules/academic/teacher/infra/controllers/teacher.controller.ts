@@ -4,15 +4,9 @@ import { EditTeacherService } from "@academic/teacher/application/services/edit-
 import { ListTeachersService } from "@academic/teacher/application/services/list-teacher.service";
 import { RemoveTeacherService } from "@academic/teacher/application/services/remove-teacher.service";
 import { ReturnTeacherService } from "@academic/teacher/application/services/return-teacher.service";
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-} from "@nestjs/common";
+import { RequirePermissions } from "@shared/infra/decorators/permissions.decorator";
+import { Permission } from "@shared/domain/enums/permission.enum";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 
 @Controller("teachers")
 export class TeachersController {
@@ -25,26 +19,31 @@ export class TeachersController {
   ) {}
 
   @Get()
+  @RequirePermissions(Permission.TEACHERS_READ)
   async findAll() {
     return this.listTeacherService.execute();
   }
 
   @Get(":id")
+  @RequirePermissions(Permission.TEACHERS_READ)
   async findById(@Param("id") id: string) {
     return this.returnTeacherService.executeById(id);
   }
 
   @Post()
+  @RequirePermissions(Permission.TEACHERS_WRITE)
   async create(@Body() body: TeacherDto) {
     return this.createTeacherService.execute(body);
   }
 
   @Put(":id")
+  @RequirePermissions(Permission.TEACHERS_WRITE)
   async update(@Param("id") id: string, @Body() body: TeacherDto) {
     return this.editTeacherService.execute(id, body);
   }
 
   @Delete(":id")
+  @RequirePermissions(Permission.TEACHERS_DELETE)
   async remove(@Param("id") id: string) {
     return this.removeTeacherService.execute(id);
   }

@@ -15,6 +15,13 @@
       "when": 1773352566801,
       "tag": "0001_purple_radioactive_man",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1773959676577,
+      "tag": "0002_great_iceman",
+      "breakpoints": true
     }
   ]
 }
