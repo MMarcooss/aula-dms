@@ -1,9 +1,9 @@
-import { CreateUserDto } from "../dto/create-user.dto";
-import { User } from "../../domain/models/user.entity";
+import { CreateUserDto } from "@academic/users/application/dto/create-user.dto";
+import { User } from "@academic/users/domain/models/user.entity";
 import {
   USER_REPOSITORY,
   type UserRepository,
-} from "../../domain/repositories/user-repository.interface";
+} from "@academic/users/domain/repositories/user-repository.interface";
 import { ConflictException, Inject, Injectable } from "@nestjs/common";
 import bcrypt from "bcryptjs";
 

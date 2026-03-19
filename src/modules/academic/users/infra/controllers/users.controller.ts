@@ -1,7 +1,7 @@
-import { CreateUserDto } from "../../application/dto/create-user.dto";
-import { UserService } from "../../application/services/user.service";
+import { CreateUserDto } from "@academic/users/application/dto/create-user.dto";
+import { UserService } from "@academic/users/application/services/user.service";
+import { Public } from "@shared/infra/decorators/public.decorator";
 import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
-import { Public } from "../../../../../shared/infra/decorators/public.decorator";
 
 @Controller("users")
 export class UsersController {

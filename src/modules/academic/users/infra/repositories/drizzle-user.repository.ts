@@ -1,5 +1,5 @@
-import type { User } from "../../domain/models/user.entity";
-import type { UserRepository } from "../../domain/repositories/user-repository.interface";
+import { User } from "@academic/users/domain/models/user.entity";
+import type { UserRepository } from "@academic/users/domain/repositories/user-repository.interface";
 import { DrizzleService } from "@infra/database/drizzle.service";
 import { Injectable } from "@nestjs/common";
 import { eq } from "drizzle-orm";
